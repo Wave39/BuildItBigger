@@ -1,5 +1,6 @@
 package com.wave39.jokedisplaylibrary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -19,6 +20,21 @@ public class JokeDisplayActivity extends ActionBarActivity {
         //setContentView(R.layout.activity_main);
 
         Log.i(LOG_TAG, "onCreate");
+
+        String theJoke;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                theJoke = null;
+            } else {
+                theJoke = extras.getString(Intent.EXTRA_TEXT);
+            }
+
+        } else {
+            theJoke = (String) savedInstanceState.getSerializable(Intent.EXTRA_TEXT);
+        }
+
+        Log.i(LOG_TAG, "The joke is: " + theJoke);
     }
 
 }

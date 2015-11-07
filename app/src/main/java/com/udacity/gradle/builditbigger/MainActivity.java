@@ -54,7 +54,6 @@ public class MainActivity extends ActionBarActivity {
 
         Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
         jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, theJoke);
-        jokeDisplayIntent.setType("text/plain");
         startActivity(jokeDisplayIntent);
 
         Toast.makeText(this, theJoke, Toast.LENGTH_SHORT).show();
