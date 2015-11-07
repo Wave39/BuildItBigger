@@ -2,26 +2,28 @@ package com.wave39.jokedisplaylibrary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 /**
  * JokeDisplayActivity
  * Created by bp on 11/7/15.
  */
 
-public class JokeDisplayActivity extends ActionBarActivity {
+public class JokeDisplayActivity extends AppCompatActivity {
 
     public final String LOG_TAG = JokeDisplayActivity.class.getSimpleName();
+
+    String theJoke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.joke_activity);
 
         Log.i(LOG_TAG, "onCreate");
 
-        String theJoke;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -35,6 +37,9 @@ public class JokeDisplayActivity extends ActionBarActivity {
         }
 
         Log.i(LOG_TAG, "The joke is: " + theJoke);
+
+        TextView textView = (TextView) this.findViewById(R.id.joke_text_view);
+        textView.setText(theJoke);
     }
 
 }
