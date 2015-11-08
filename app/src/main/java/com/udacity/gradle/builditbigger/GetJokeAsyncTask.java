@@ -8,12 +8,12 @@ import android.util.Log;
  * Created by bp on 11/8/15.
  */
 
-public class GetJokeAsyncTask extends AsyncTask<String, Void, String> {
+public class GetJokeAsyncTask extends AsyncTask<Void, Void, String> {
 
     public final String LOG_TAG = GetJokeAsyncTask.class.getSimpleName();
 
     @Override
-    protected String doInBackground(String ... params) {
+    protected String doInBackground(Void... params) {
 
         return "Async return value";
 

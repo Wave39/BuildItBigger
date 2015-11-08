@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
         jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, theJoke);
         startActivity(jokeDisplayIntent);
+
+        new GetJokeAsyncTask().execute();
     }
 
 }
