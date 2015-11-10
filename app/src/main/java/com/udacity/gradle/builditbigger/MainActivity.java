@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.udacity.gradle.jokelibrary.JokeLibrary;
 import com.wave39.jokedisplaylibrary.JokeDisplayActivity;
 
 
@@ -45,12 +44,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        String theJoke = JokeLibrary.getJoke();
-        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
-        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, theJoke);
-        startActivity(jokeDisplayIntent);
+//        String theJoke = JokeLibrary.getJoke();
+//        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
+//        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, theJoke);
+//        startActivity(jokeDisplayIntent);
 
-        new GetJokeAsyncTask().execute();
+        new GetJokeAsyncTask().execute(this);
     }
 
+    public void displayJokeActivity(String string) {
+        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
+        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, string);
+        startActivity(jokeDisplayIntent);
+
+    }
 }

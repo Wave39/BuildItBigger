@@ -16,14 +16,15 @@ import java.io.IOException;
  * Created by bp on 11/8/15.
  */
 
-public class GetJokeAsyncTask extends AsyncTask<Void, Void, String> {
+public class GetJokeAsyncTask extends AsyncTask<MainActivity, Void, String> {
 
     public final String LOG_TAG = GetJokeAsyncTask.class.getSimpleName();
 
     private static MyApi myApiService = null;
+    private MainActivity mainActivity;
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected String doInBackground(MainActivity... params) {
 
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -43,6 +44,8 @@ public class GetJokeAsyncTask extends AsyncTask<Void, Void, String> {
             myApiService = builder.build();
         }
 
+        mainActivity = params[0];
+
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
@@ -54,5 +57,6 @@ public class GetJokeAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.i(LOG_TAG, "onPostExecute result: " + result);
+        mainActivity.displayJokeActivity(result);
     }
 }
