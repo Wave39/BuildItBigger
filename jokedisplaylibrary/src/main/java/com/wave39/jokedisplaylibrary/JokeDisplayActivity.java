@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class JokeDisplayActivity extends AppCompatActivity {
 
-    public final String LOG_TAG = JokeDisplayActivity.class.getSimpleName();
+    //public final String LOG_TAG = JokeDisplayActivity.class.getSimpleName();
 
     String theJoke;
 
@@ -21,8 +21,6 @@ public class JokeDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.joke_activity);
-
-        Log.i(LOG_TAG, "onCreate");
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -36,7 +34,7 @@ public class JokeDisplayActivity extends AppCompatActivity {
             theJoke = (String) savedInstanceState.getSerializable(Intent.EXTRA_TEXT);
         }
 
-        Log.i(LOG_TAG, "The joke is: " + theJoke);
+        //Log.i(LOG_TAG, "The joke is: " + theJoke);
 
         TextView textView = (TextView) this.findViewById(R.id.joke_text_view);
         textView.setText(theJoke);
