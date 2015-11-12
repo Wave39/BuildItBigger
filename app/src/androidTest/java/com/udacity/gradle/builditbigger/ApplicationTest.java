@@ -14,7 +14,6 @@ import java.util.concurrent.CountDownLatch;
 public class ApplicationTest extends ApplicationTestCase<Application> {
 
     String jokeString;
-    Exception jokeError;
 
     public ApplicationTest() {
         super(Application.class);
@@ -26,19 +25,16 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testAlbumGetTask() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
-        GetJokeAsyncTask task = new GetJokeAsyncTask(null);
+        GetJokeAsyncTask task = new GetJokeAsyncTask();
         task.setListener(new GetJokeAsyncTask.OnGetJokeAsyncTaskCompleted() {
             @Override
-            public void onGetJokeTaskCompleted(String jsonString, Exception e) {
-                jokeString = jsonString;
-                jokeError = e;
+            public void onGetJokeTaskCompleted(String result) {
+                jokeString = result;
                 signal.countDown();
             }
         }).execute();
         signal.await();
 
-        assertNull(jokeError);
-        assertFalse(TextUtils.isEmpty(jokeString));
-
+        assertFalse("Joke is empty", TextUtils.isEmpty(jokeString));
     }
 }

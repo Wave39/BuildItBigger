@@ -20,6 +20,11 @@ public class GetJokeAsyncTask extends AsyncTask < Void, Void, String > {
     private static MyApi myApiService = null;
     private OnGetJokeAsyncTaskCompleted theListener;
 
+    public GetJokeAsyncTask()
+    {
+        super();
+    }
+
     public GetJokeAsyncTask(OnGetJokeAsyncTaskCompleted listener)
     {
         theListener = listener;
@@ -53,7 +58,7 @@ public class GetJokeAsyncTask extends AsyncTask < Void, Void, String > {
         theListener.onGetJokeTaskCompleted(result);
     }
 
-    public static interface OnGetJokeAsyncTaskCompleted {
+    public interface OnGetJokeAsyncTaskCompleted {
         public void onGetJokeTaskCompleted(String result);
     }
 }
