@@ -3,7 +3,6 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,19 +10,16 @@ import android.view.View;
 import com.wave39.jokedisplaylibrary.JokeDisplayActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetJokeAsyncTask.OnGetJokeAsyncTaskCompleted {
 
     //public final String LOG_TAG = MainActivity.class.getSimpleName();
-    public Boolean testMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setTheme(R.style.Theme_AppCompat);
         setContentView(R.layout.activity_main);
-        testMode = false;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,17 +44,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new GetJokeAsyncTask().execute(this);
+        new GetJokeAsyncTask(this).execute();
     }
 
     public void displayJokeActivity(String string) {
-        if (testMode) {
-            Log.i("Test mode", "Joke is in test mode: " + string);
-            return;
-        }
-
         Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
         jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, string);
         startActivity(jokeDisplayIntent);
+    }
+
+    @Override
+    public void onGetJokeTaskCompleted(String result) {
+        displayJokeActivity(result);
     }
 }

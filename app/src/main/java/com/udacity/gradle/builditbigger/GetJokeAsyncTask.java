@@ -13,23 +13,31 @@ import java.io.IOException;
  * Created by bp on 11/8/15.
  */
 
-public class GetJokeAsyncTask extends AsyncTask < MainActivity, Void, String > {
+public class GetJokeAsyncTask extends AsyncTask < Void, Void, String > {
 
     //public final String LOG_TAG = GetJokeAsyncTask.class.getSimpleName();
 
     private static MyApi myApiService = null;
-    private MainActivity mainActivity;
+    private OnGetJokeAsyncTaskCompleted theListener;
+
+    public GetJokeAsyncTask(OnGetJokeAsyncTaskCompleted listener)
+    {
+        theListener = listener;
+    }
+
+    public GetJokeAsyncTask setListener(OnGetJokeAsyncTaskCompleted listener) {
+        this.theListener = listener;
+        return this;
+    }
 
     @Override
-    protected String doInBackground(MainActivity... params) {
+    protected String doInBackground(Void... params) {
 
         if(myApiService == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://jokes-1125.appspot.com/_ah/api/");
             myApiService = builder.build();
         }
-
-        mainActivity = params[0];
 
         try {
             return myApiService.getJoke().execute().getData();
@@ -42,6 +50,10 @@ public class GetJokeAsyncTask extends AsyncTask < MainActivity, Void, String > {
     @Override
     protected void onPostExecute(String result) {
         //Log.i(LOG_TAG, "onPostExecute result: " + result);
-        mainActivity.displayJokeActivity(result);
+        theListener.onGetJokeTaskCompleted(result);
+    }
+
+    public static interface OnGetJokeAsyncTaskCompleted {
+        public void onGetJokeTaskCompleted(String result);
     }
 }
